@@ -5,6 +5,7 @@ class Notes{
   String? editDate;
   String? note;
   bool? isSelected;
+  bool isDone = false;
 
   Notes({this.name,this.date,this.note,this.isSelected = false,this.editDate,this.id});
 
@@ -14,7 +15,8 @@ class Notes{
         date = json["date"],
         note = json["note"],
         isSelected = json["isSelected"],
-        editDate = json["editDate"];
+        editDate = json["editDate"],
+        isDone = json["isDone"];
 
   Map<String, dynamic> toJson() => {
     "name" : name,
@@ -23,5 +25,6 @@ class Notes{
     "note" : note,
     "isSelected" : isSelected,
     "editDate" : editDate,
+    "isDone" : isDone,
   };
 }

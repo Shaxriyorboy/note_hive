@@ -1,27 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:note_hive/pages/detail_page.dart';
-import 'package:note_hive/pages/home_page.dart';
+import 'package:note_hive/pages/detail_page/detail_page.dart';
+import 'package:note_hive/pages/home_page/home_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:note_hive/services/db_service.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:note_hive/services/di_service.dart';
 
 void main() async{
+  await DIService.init();
   await Hive.initFlutter();
   await Hive.openBox(DBService.dbName);
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  runApp(
-    EasyLocalization(
-      child: MyApp(),
-      supportedLocales: [
-        Locale("en", "US"),
-        Locale("ru", "RU"),
-        Locale("uz", "UZ"),
-      ],
-      path: "assets/translations",
-      fallbackLocale: Locale("en", "US"),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -39,9 +28,6 @@ class MyApp extends StatelessWidget {
           theme: ThemeData.light(),
           debugShowCheckedModeBanner: false,
           home: const HomePage(),
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
           routes: {
             HomePage.id:(context) => HomePage(),
             DetailPage.id:(context) => DetailPage(),
